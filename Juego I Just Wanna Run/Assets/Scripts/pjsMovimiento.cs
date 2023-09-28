@@ -11,10 +11,15 @@ public class ControladorPersonaje : MonoBehaviour
     private Rigidbody2D rb;
     private bool puedeSaltar = true;        // Variable para controlar si se puede saltar
 
+    private Animator animator;
+    private SpriteRenderer playerprite;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         velocidadActual = velocidadBase;
+        playerprite = GetComponent<SpriteRenderer>();
+
     }
 
     void Update()
@@ -36,13 +41,27 @@ public class ControladorPersonaje : MonoBehaviour
         {
             movimientoHorizontal = -1f;
         }
+        
+
+
         else if (Input.GetKey("d"))
         {
             movimientoHorizontal = 1f;
         }
+        if(movimientoHorizontal > 0)
+        {
+            flip(true);
+
+        }
+        else if(movimientoHorizontal < 0)
+        { flip(false); }
+        
 
         Vector2 velocidad = new Vector2(movimientoHorizontal * velocidadActual, rb.velocity.y);
         rb.velocity = velocidad;
+        animator.SetFloat("a", Mathf.Abs(movimientoHorizontal));
+
+      
 
         // Permitir un salto si está en contacto con el suelo
         if (puedeSaltar && Input.GetButtonDown("Jump"))
@@ -50,6 +69,22 @@ public class ControladorPersonaje : MonoBehaviour
             rb.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
             puedeSaltar = false;
         }
+    }
+
+    void flip(bool flipped)
+    {
+        if (flipped == true) 
+        {
+            playerprite.flipX = false;
+        
+        }
+        else if(flipped == false)
+        {
+            playerprite.flipX = true;
+        }
+        
+    
+           
     }
 
     // Detecta colisiones con el suelo para habilitar el salto
