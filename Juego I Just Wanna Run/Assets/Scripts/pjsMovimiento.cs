@@ -12,13 +12,13 @@ public class ControladorPersonaje : MonoBehaviour
     private bool puedeSaltar = true;        // Variable para controlar si se puede saltar
 
     private Animator animator;
-    private SpriteRenderer playerprite;
+    private SpriteRenderer playerSprite;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         velocidadActual = velocidadBase;
-        playerprite = GetComponent<SpriteRenderer>();
+        playerSprite = GetComponent<SpriteRenderer>();
 
     }
 
@@ -64,7 +64,7 @@ public class ControladorPersonaje : MonoBehaviour
       
 
         // Permitir un salto si está en contacto con el suelo
-        if (puedeSaltar && Input.GetButtonDown("Jump"))
+        if (puedeSaltar && Input.GetKey("space"))
         {
             rb.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
             puedeSaltar = false;
@@ -75,12 +75,12 @@ public class ControladorPersonaje : MonoBehaviour
     {
         if (flipped == true) 
         {
-            playerprite.flipX = false;
+            playerSprite.flipX = false;
         
         }
         else if(flipped == false)
         {
-            playerprite.flipX = true;
+            playerSprite.flipX = true;
         }
         
     
