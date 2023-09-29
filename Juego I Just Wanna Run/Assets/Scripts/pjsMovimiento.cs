@@ -37,31 +37,31 @@ public class ControladorPersonaje : MonoBehaviour
         // Mover el personaje horizontalmente
         float movimientoHorizontal = 0f;
 
-        if (Input.GetKey("a"))
+        if (Input.GetKey(KeyCode.A))
         {
             movimientoHorizontal = -1f;
         }
-        
 
 
-        else if (Input.GetKey("d"))
+
+        else if (Input.GetKey(KeyCode.D))
         {
             movimientoHorizontal = 1f;
         }
-        if(movimientoHorizontal > 0)
+        if (movimientoHorizontal > 0)
         {
             flip(true);
 
         }
-        else if(movimientoHorizontal < 0)
+        else if (movimientoHorizontal < 0)
         { flip(false); }
-        
+
 
         Vector2 velocidad = new Vector2(movimientoHorizontal * velocidadActual, rb.velocity.y);
         rb.velocity = velocidad;
         animator.SetFloat("a", Mathf.Abs(movimientoHorizontal));
 
-      
+
 
         // Permitir un salto si está en contacto con el suelo
         if (puedeSaltar && Input.GetKey("space"))
@@ -73,18 +73,18 @@ public class ControladorPersonaje : MonoBehaviour
 
     void flip(bool flipped)
     {
-        if (flipped == true) 
+        if (flipped == true)
         {
             playerSprite.flipX = false;
-        
+
         }
-        else if(flipped == false)
+        else if (flipped == false)
         {
             playerSprite.flipX = true;
         }
-        
-    
-           
+
+
+
     }
 
     // Detecta colisiones con el suelo para habilitar el salto
@@ -96,7 +96,3 @@ public class ControladorPersonaje : MonoBehaviour
         }
     }
 }
-
-
-
-
